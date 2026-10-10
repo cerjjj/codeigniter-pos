@@ -1,0 +1,6 @@
+<?= $this->extend('layouts/main') ?>
+<?= $this->section('content') ?>
+<section class="panel"><div class="section-heading"><div><p class="eyebrow">Transaction log</p><h2><?= count($sales) ?> recorded sales</h2></div><a class="button primary" href="<?= site_url('sales/new') ?>"><i data-lucide="plus"></i><span>Record sale</span></a></div><div class="table-wrap"><table><thead><tr><th>Date</th><th>Product</th><th>Customer</th><th>Staff</th><th class="number">Qty</th><th class="number">Total</th></tr></thead><tbody>
+<?php if ($sales): foreach ($sales as $sale): ?><tr><td><strong><?= date('M j, Y', strtotime($sale['created_at'])) ?></strong><small><?= date('g:i A', strtotime($sale['created_at'])) ?></small></td><td><?= esc($sale['product_name']) ?></td><td><?= esc($sale['customer_name'] ?: 'Walk-in') ?></td><td><?= esc($sale['staff_name']) ?></td><td class="number"><?= number_format($sale['quantity']) ?></td><td class="number"><strong>PHP <?= number_format($sale['total_price'], 2) ?></strong></td></tr><?php endforeach; else: ?><tr><td colspan="6"><div class="empty-state small"><i data-lucide="receipt-text"></i><strong>No sales recorded</strong><p>Completed transactions will appear here.</p></div></td></tr><?php endif ?>
+</tbody></table></div></section>
+<?= $this->endSection() ?>
